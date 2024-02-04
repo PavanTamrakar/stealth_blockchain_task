@@ -15,7 +15,6 @@ const deployGovernanceToken: DeployFunction = async function (hre: HardhatRuntim
     from: deployer,
     args: [],
     log: true,
-    // we need to wait if on a live network so we can verify properly
     waitConfirmations: networkConfig[network.name].blockConfirmations || 1,
   })
   log(`GovernanceToken at ${governanceToken.address}`)
