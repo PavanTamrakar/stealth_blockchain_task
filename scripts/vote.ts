@@ -6,15 +6,11 @@ import { moveBlocks } from "../utils/move-blocks"
 
 async function main() {
   const proposals = JSON.parse(fs.readFileSync(proposalsFile, "utf8"))
-  // Get the last proposal for the network. You could also change it for your index
   const proposalId = proposals[network.config.chainId!].at(-1);
-  // 0 = Against, 1 = For, 2 = Abstain for this example
   const voteWay = 1
   const reason = "I lika do da cha cha"
   await vote(proposalId, voteWay, reason)
 }
-
-// 0 = Against, 1 = For, 2 = Abstain for this example
 export async function vote(proposalId: string, voteWay: number, reason: string) {
   console.log("Voting...")
   const governor = await ethers.getContract("GovernorContract")

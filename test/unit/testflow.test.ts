@@ -54,9 +54,6 @@ describe("Governor Flow", async () => {
     assert.equal(proposalState.toString(), "1")
     console.log(`Current Proposal State: ${proposalState}`)
     await moveBlocks(VOTING_PERIOD + 1)
-
-    // queue & execute
-    // const descriptionHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(PROPOSAL_DESCRIPTION))
     const descriptionHash = ethers.utils.id(PROPOSAL_DESCRIPTION)
     const queueTx = await governor.queue([box.address], [0], [encodedFunctionCall], descriptionHash)
     await queueTx.wait(1)

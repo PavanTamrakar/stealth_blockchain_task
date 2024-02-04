@@ -22,7 +22,7 @@ export async function propose(args: any[], functionToCall: string, proposalDescr
     [encodedFunctionCall],
     proposalDescription
   )
-  // If working on a development chain, we will push forward till we get to the voting period.
+  
   if (developmentChains.includes(network.name)) {
     await moveBlocks(VOTING_DELAY + 1)
   }
@@ -33,15 +33,12 @@ export async function propose(args: any[], functionToCall: string, proposalDescr
   const proposalState = await governor.state(proposalId)
   const proposalSnapShot = await governor.proposalSnapshot(proposalId)
   const proposalDeadline = await governor.proposalDeadline(proposalId)
-  // save the proposalId
+
   storeProposalId(proposalId);
 
-  // the Proposal State is an enum data type, defined in the IGovernor contract.
-  // 0:Pending, 1:Active, 2:Canceled, 3:Defeated, 4:Succeeded, 5:Queued, 6:Expired, 7:Executed
+
   console.log(`Current Proposal State: ${proposalState}`)
-  // What block # the proposal was snapshot
   console.log(`Current Proposal Snapshot: ${proposalSnapShot}`)
-  // The block number the proposal voting expires
   console.log(`Current Proposal Deadline: ${proposalDeadline}`)
 }
 
